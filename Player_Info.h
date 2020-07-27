@@ -23,6 +23,12 @@ public:
     string getName() {
         return name;
     }
+    string getPos(){
+        return position;
+    }
+    string getNumber(){
+        return jerseyNum;
+    }
 };
 
 #endif /*Player_Info_H_*/

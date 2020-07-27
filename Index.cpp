@@ -6,6 +6,7 @@
 #include "rapidjson/stringbuffer.h"
 #include <iostream> 
 #include <vector> 
+#include <algorithm>
 #include "Hitter_Profile.h"
 #include "Pitcher_Profile.h"
 
@@ -16,9 +17,9 @@ size_t handleResp(char *contents, size_t size, size_t nmemb, void *userp) {
     ((std::string*)userp)->append((char*)contents, size * nmemb);
     return size * nmemb;
 }
-size_t handleResp2(char *contents, size_t size, size_t nmemb, void *userp) {
-    ((std::string*)userp)->append((char*)contents, size * nmemb);
-    return size * nmemb;
+
+void wait(){
+    cin.get();
 }
 
 int main() {
@@ -58,13 +59,48 @@ int main() {
                 temp->setPlayerStats();
                 pitcher_profiles.push_back(temp);
             }
-            
         }
-        curl_easy_cleanup(curl);       
-        
-        cout << hitter_profiles.size() << endl;
-        cout << pitcher_profiles.size() << endl;
+        curl_easy_cleanup(curl);
     }
-    
+    bool looping = true;
+    while (looping) {
+        int input;
+        printf("Please Enter the Number of the option you wish to select: \n");
+        printf("1. Sort Batters by Avg\n2. Sort Batters by Home Runs\n3. Sort Batters by OPS\n4. Sort Pitchers by ERA\n5. Sort Pitchers by Wins\n6. Sort Pitchers by Strike Outs\n7. Exit\n\n");
+
+        if(scanf("%d", &input) == 1){
+            switch(input){
+                case 1:
+                    sort(hitter_profiles.begin(), hitter_profiles.end(), CompbyAvg());
+                    Hitter_Profile::displayTable(hitter_profiles);
+                    printf("\nPress Enter When Done\n");
+                    cin.ignore();
+                    cin.ignore();
+                    break;
+                case 2:
+                    sort(hitter_profiles.begin(), hitter_profiles.end(), CompbyHR());
+                    Hitter_Profile::displayTable(hitter_profiles);
+                    printf("\nPress Enter When Done\n");
+                    cin.ignore();
+                    cin.ignore();
+                    break;
+                case 3:
+                    sort(hitter_profiles.begin(), hitter_profiles.end(), CompbyOPS());
+                    Hitter_Profile::displayTable(hitter_profiles);
+                    printf("\nPress Enter When Done\n");
+                    cin.ignore();
+                    cin.ignore();
+                    break;
+                case 7:
+                    looping = false;
+                    break;
+                default:
+                    break;
+                
+
+            }
+        }
+    }
     return 0;
 }
+

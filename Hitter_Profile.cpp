@@ -42,7 +42,7 @@ void Hitter_Profile::setPlayerStats(){
 
         Value& querySize = d["sport_hitting_tm"]["queryResults"]["totalSize"];
         string queryString = querySize.GetString();
-        if (stoi(queryString) == 1){
+        if (stoi(queryString) == 1){            
             Value& stats = d["sport_hitting_tm"]["queryResults"]["row"];
             at_bats = stats["ab"].GetString();
             runs = stats["r"].GetString();
@@ -52,10 +52,30 @@ void Hitter_Profile::setPlayerStats(){
             hrs = stats["hr"].GetString();
             ops = stats["ops"].GetString();
             strike_outs = stats["so"].GetString();
-            avg = stats["avg"].GetString();
+            regex pattern ("^.?\\d+");
+            if (!regex_match(stats["avg"].GetString(), pattern)){
+                avg = ".000";
+            }
+            else {
+                avg = stats["avg"].GetString();
+            }
             bb = stats["bb"].GetString();
             slugging = stats["slg"].GetString();
             stolen_bases = stats["sb"].GetString();
+        }
+        else{
+            at_bats = "0";
+            runs = "0";
+            on_base_percent = "0";
+            rbis = "0";
+            hits = "0";
+            hrs = "0";
+            ops = ".000";
+            strike_outs = "0";
+            avg = ".000";
+            bb = "0";
+            slugging = "0";
+            stolen_bases = "0";
         }                
     }
     curl_easy_cleanup(curlStat);
