@@ -91,6 +91,27 @@ int main() {
                     cin.ignore();
                     cin.ignore();
                     break;
+                case 4:
+                    sort(pitcher_profiles.begin(), pitcher_profiles.end(), CompbyEra());
+                    Pitcher_Profile::displayTable(pitcher_profiles);
+                    printf("\nPress Enter When Done\n");
+                    cin.ignore();
+                    cin.ignore();
+                    break;
+                case 5:
+                    sort(pitcher_profiles.begin(), pitcher_profiles.end(), CompbyWins());
+                    Pitcher_Profile::displayTable(pitcher_profiles);
+                    printf("\nPress Enter When Done\n");
+                    cin.ignore();
+                    cin.ignore();
+                    break;
+                case 6:
+                    sort(pitcher_profiles.begin(), pitcher_profiles.end(), CompbySO());
+                    Pitcher_Profile::displayTable(pitcher_profiles);
+                    printf("\nPress Enter When Done\n");
+                    cin.ignore();
+                    cin.ignore();
+                    break;
                 case 7:
                     looping = false;
                     break;

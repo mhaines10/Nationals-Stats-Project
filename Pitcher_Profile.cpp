@@ -54,7 +54,12 @@ void Pitcher_Profile::setPlayerStats(){
             strike_outs = stats["so"].GetString();
             bb = stats["bb"].GetString();
             k_9 = stats["k9"].GetString();
-        }                
+        }
+        else{
+            era = "0.00";
+            wins = "0";
+            strike_outs = "0";
+        }              
     }
     curl_easy_cleanup(curlStat);
 }
